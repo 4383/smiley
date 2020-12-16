@@ -253,8 +253,7 @@ class Tracer(object):
                     time.time(),
                 )
                 run_python_file(
-                    command_line[0],
-                    command_line,
+                    command_line
                 )
         except ExceptionDuringRun as err:
             # Unpack the wrapped exception
@@ -278,3 +277,38 @@ class Tracer(object):
                 stats=context.get_stats_data(),
             )
             self.run_id = None
+
+    #def attach(self, pid):
+    #    self.run_id = str(uuid.uuid4())
+    #    context = TracerContext(self)
+    #    try:
+    #        with context:
+    #            self.publisher.start_run(
+    #                self.run_id,
+    #                os.getcwd(),
+    #                command_line,
+    #                time.time(),
+    #            )
+
+    #    except ExceptionDuringRun as err:
+    #        # Unpack the wrapped exception
+    #        err_type, orig_err, traceback = err.args
+    #        try:
+    #            self.publisher.end_run(
+    #                self.run_id,
+    #                end_time=time.time(),
+    #                message=six.text_type(orig_err),
+    #                traceback=traceback,
+    #                stats=context.get_stats_data(),
+    #            )
+    #        finally:
+    #            del traceback  # remove circular reference for GC
+    #    else:
+    #        self.publisher.end_run(
+    #            self.run_id,
+    #            time.time(),
+    #            message=None,
+    #            traceback=None,
+    #            stats=context.get_stats_data(),
+    #        )
+    #        self.run_id = None
